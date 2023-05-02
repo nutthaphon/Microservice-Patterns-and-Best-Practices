@@ -34,14 +34,14 @@ func (cache *Cache) NewCachePool() *redigo.Pool {
 				if err != nil {
 					return nil, err
 				}
-				if _, err = c.Do("AUTH", cache.Auth); err != nil {
-					c.Close()
-					return nil, err
-				}
-				if _, err = c.Do("SELECT", cache.DB); err != nil {
-					c.Close()
-					return nil, err
-				}
+				//if _, err = c.Do("AUTH", cache.Auth); err != nil {
+				//	c.Close()
+				//	return nil, err
+				//}
+				//if _, err = c.Do("SELECT", cache.DB); err != nil {
+				//	c.Close()
+				//	return nil, err
+				//}
 				return c, err
 			},
 			TestOnBorrow: func(c redigo.Conn, t time.Time) error {
