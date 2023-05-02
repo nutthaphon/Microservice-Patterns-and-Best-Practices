@@ -32,7 +32,7 @@ services:
       - APP_RD_DBNAME=0
       - APP_SETTINGS=project.config.DevelopmentConfig
       - DATABASE_URL=postgres://postgres:postgres@users-service-db:5432/users_prod?sslmode=disable
-      - DATABASE_DEV_URL=postgres://postgres:postgres@bookproject_db:5432/users_dev?sslmode=disable
+      - DATABASE_DEV_URL=postgres://postgres:postgres@users-service-db:5432/users_dev?sslmode=disable
       - DATABASE_TEST_URL=postgres://postgres:postgres@users-service-db:5432/users_test?sslmode=disable
     depends_on:
       users-service-db:
