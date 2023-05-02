@@ -27,9 +27,9 @@ func main() {
 	flag.IntVar(&numWorkers, "num_workers", 10, "Number of workers to consume queue")
 	cache.Pool = cache.NewCachePool()
 
-	connectionString := os.Getenv("DATABASE_DEV_URL")
+	//connectionString := os.Getenv("DATABASE_DEV_URL")
 
-	db, err := sqlx.Open("postgres", connectionString)
+	db, err := sqlx.Open("postgres", "host=users-service-db port=5432 user=postgres password=postgres dbname=users_dev sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}

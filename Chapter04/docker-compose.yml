@@ -24,6 +24,7 @@ services:
   userservice:
     image: userservice
     build: ./UsersService
+    hostname: bookproject_userservice_1
     environment:
       - APP_RD_ADDRESS=redis:6379
       - APP_RD_AUTH=password
@@ -45,6 +46,6 @@ services:
     container_name: userservice_loadbalance
     build: ./nginx
     ports:
-      - "80:80"
+      - "8080:80"
     links:
       - userservice
