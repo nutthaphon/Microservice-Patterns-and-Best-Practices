@@ -26,6 +26,8 @@ services:
     image: userservice
     build: ./UsersService
     hostname: bookproject_userservice_1
+    ports:
+      - "3000:3000"
     environment:
       - APP_RD_ADDRESS=redis:6379
       - APP_RD_AUTH=password
