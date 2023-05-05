@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 
@@ -29,8 +30,11 @@ func main() {
 
 	connectionString := os.Getenv("DATABASE_DEV_URL")
 
+	fmt.Printf("Connection String = %s", connectionString)
+
 	db, err := sqlx.Open("postgres", connectionString)
 	if err != nil {
+		fmt.Printf("Error Connection")
 		log.Fatal(err)
 	}
 
