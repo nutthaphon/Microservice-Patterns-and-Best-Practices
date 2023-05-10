@@ -23,7 +23,7 @@ services:
     container_name: users-service-db
     build: ./UsersService/db
     ports:
-      - 5435:5432
+      - 5432:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -33,6 +33,7 @@ services:
 
   userservice:
     image: userservice
+    hostname: userservice
     build: ./UsersService
     environment:
       - APP_RD_ADDRESS=redis:6379
@@ -53,7 +54,10 @@ services:
     restart: always
 
   famous_news_service: 
-    image: famous_news_service 
+    image: famous_news_service
+    hostname: famous_news_service 
+    ports:
+      - "5001:5000"
     build: ./FamousNewsService 
     volumes: 
       - '.:/usr/src/app' 
@@ -68,6 +72,9 @@ services:
  
   politics_news_service: 
     image: politics_news_service 
+    hostname: politics_news_service
+    ports:
+      - "5002:5000"
     build: ./PoliticsNewsService 
     volumes: 
       - '.:/usr/src/app' 
@@ -82,6 +89,9 @@ services:
  
   sports_news_service: 
     image: sports_news_service 
+    hostname: sports_news_service
+    ports:
+      - "5003:5000"
     build: ./SportsNewsService 
     volumes: 
       - '.:/usr/src/app' 

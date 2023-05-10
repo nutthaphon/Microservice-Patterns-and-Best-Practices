@@ -4,6 +4,7 @@ services:
 
   redis:
     image: redis
+    hostname: redis
     ports:
      - "6379:6379"
     healthcheck:
@@ -25,6 +26,8 @@ services:
     image: chapter04-userservice
     #build: ./UsersService
     hostname: userservice
+    ports:
+      - 3000:3000
     environment:
       - APP_RD_ADDRESS=redis:6379
       - APP_RD_AUTH=password
