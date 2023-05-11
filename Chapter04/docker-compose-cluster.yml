@@ -67,7 +67,7 @@ services:
 
   proxy:
     container_name: userservice_loadbalance
-    build: ./nginx
+    build: ./nginx-cluster
     ports:
       - "8080:80"
     links:
