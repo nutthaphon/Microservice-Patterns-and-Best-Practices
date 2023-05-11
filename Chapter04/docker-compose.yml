@@ -12,23 +12,18 @@ services:
 
   users-service-db:
     container_name: users-service-db
-    volumes:
-      - pgdata:/var/lib/postgresql/data
     build: ./UsersService/db
     ports:
-      - 5432:5432
+      - 5435:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - PGDATA=/var/lib/postgresql/data/pgdata
     healthcheck:
       test: exit 0
 
-  userservice1:
+  userservice:
     image: userservice
     build: ./UsersService
-    ports:
-      - "3000:3000"
     environment:
       - APP_RD_ADDRESS=redis:6379
       - APP_RD_AUTH=password
@@ -50,9 +45,6 @@ services:
     container_name: userservice_loadbalance
     build: ./nginx
     ports:
-      - "8080:80"
+      - "80:80"
     links:
-      - userservice1
-
-volumes:
-  pgdata:
+      - userservice
