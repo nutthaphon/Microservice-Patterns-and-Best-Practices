@@ -13,9 +13,11 @@ services:
 
   mongo: 
     image: mongo:4.0 
-    container_name: "mongodb" 
+    container_name: "mongodb"
+    volumes:
+      - mongodata:/data/db
     ports: 
-        - 27017:27017 
+      - 27017:27017 
     command: mongod --smallfiles --logpath=/dev/null
     restart: always
 
@@ -31,10 +33,11 @@ services:
       test: exit 0
     restart: always
 
-  userservice:
+  userservice1:
     image: userservice
-    hostname: userservice
     build: ./UsersService
+    ports:
+      - "3001:3000"
     environment:
       - APP_RD_ADDRESS=redis:6379
       - APP_RD_AUTH=password
@@ -53,9 +56,8 @@ services:
       - redis
     restart: always
 
-  famous_news_service: 
+  famous_news_service1: 
     image: famous_news_service
-    hostname: famous_news_service 
     ports:
       - "5001:5000"
     build: ./FamousNewsService 
@@ -69,10 +71,37 @@ services:
     links: 
       - mongo 
     restart: always
- 
-  politics_news_service: 
+
+  famous_news_service2: 
+    image: famous_news_service
+    build: ./FamousNewsService 
+    volumes: 
+      - '.:/usr/src/app' 
+    environment: 
+      - APP_SETTINGS=config.DevelopmentConfig 
+      - DATABASE_HOST=mongodb://mongo:27017/ 
+    depends_on: 
+      - mongo 
+    links: 
+      - mongo 
+    restart: always
+
+  famous_news_service3: 
+    image: famous_news_service
+    build: ./FamousNewsService 
+    volumes: 
+      - '.:/usr/src/app' 
+    environment: 
+      - APP_SETTINGS=config.DevelopmentConfig 
+      - DATABASE_HOST=mongodb://mongo:27017/ 
+    depends_on: 
+      - mongo 
+    links: 
+      - mongo 
+    restart: always
+  
+  politics_news_service1: 
     image: politics_news_service 
-    hostname: politics_news_service
     ports:
       - "5002:5000"
     build: ./PoliticsNewsService 
@@ -87,9 +116,8 @@ services:
       - mongo 
     restart: always
  
-  sports_news_service: 
+  sports_news_service1: 
     image: sports_news_service 
-    hostname: sports_news_service
     ports:
       - "5003:5000"
     build: ./SportsNewsService 
@@ -110,5 +138,13 @@ services:
     ports:
       - "8080:80"
     links:
-      - userservice
+      - userservice1
+      - famous_news_service1
+      - famous_news_service2
+      - famous_news_service3
+      - politics_news_service1
+      - sports_news_service1
     restart: always
+
+volumes:
+  mongodata:

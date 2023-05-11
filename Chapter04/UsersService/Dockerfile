@@ -11,10 +11,7 @@ ENV PATH=$GOPATH/bin:$PATH
 RUN mkdir -p $GOPATH/src/app 
 ADD . $GOPATH/src/app
 
-WORKDIR $GOPATH/src/app
-RUN go mod init example.com/UsersService
-RUN go mod tidy
-RUN go mod vendor
+WORKDIR $GOPATH/src/app 
 RUN go build -o main . 
 CMD ["/go/src/app/main"]
 EXPOSE 3000
