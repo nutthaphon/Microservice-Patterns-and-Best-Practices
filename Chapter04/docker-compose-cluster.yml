@@ -13,11 +13,14 @@ services:
   users-service-db:
     container_name: users-service-db
     build: ./UsersService/db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     ports:
-      - 5435:5432
+      - 5432:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
     healthcheck:
       test: exit 0
 
@@ -73,3 +76,5 @@ services:
     links:
       - userservice1
       - userservice2
+volumes:
+  pgdata:

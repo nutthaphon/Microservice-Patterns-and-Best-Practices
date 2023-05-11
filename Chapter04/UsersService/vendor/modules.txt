@@ -1,0 +1,29 @@
+# github.com/codegangsta/negroni v0.3.1-0.20180105164225-ff85fb036d90
+## explicit
+github.com/codegangsta/negroni
+# github.com/garyburd/redigo v1.5.0
+## explicit
+github.com/garyburd/redigo/internal
+github.com/garyburd/redigo/redis
+# github.com/go-sql-driver/mysql v1.7.1
+## explicit; go 1.13
+# github.com/gorilla/context v1.1.1
+## explicit
+github.com/gorilla/context
+# github.com/gorilla/mux v1.6.1-0.20180105184059-512169e5d707
+## explicit
+github.com/gorilla/mux
+# github.com/jmoiron/sqlx v0.0.0-20171211234905-de8647470aaf
+## explicit
+github.com/jmoiron/sqlx
+github.com/jmoiron/sqlx/reflectx
+# github.com/lib/pq v0.0.0-20171126050459-83612a56d3dd
+## explicit
+github.com/lib/pq
+github.com/lib/pq/oid
+# github.com/mattn/go-sqlite3 v1.14.16
+## explicit; go 1.16
+# golang.org/x/crypto v0.0.0-20171231215028-0fcca4842a8d
+## explicit
+golang.org/x/crypto/bcrypt
+golang.org/x/crypto/blowfish
