@@ -28,9 +28,8 @@ services:
   userservice:
     image: chapter04-userservice
     #build: ./UsersService
-    hostname: userservice
     ports:
-      - 3000:3000
+      - 8080:3000
     environment:
       - APP_RD_ADDRESS=redis:6379
       - APP_RD_AUTH=password
