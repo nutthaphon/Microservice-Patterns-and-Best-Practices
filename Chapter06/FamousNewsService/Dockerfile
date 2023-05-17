@@ -5,5 +5,5 @@ WORKDIR /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 ENTRYPOINT ["nameko"]
-CMD ["run", "--config",  "config.yml", "services"] 
+CMD ["run", "--config",  "config.yaml", "services"] 
 EXPOSE 8000

@@ -59,14 +59,20 @@ services:
     image: querydb_politics 
     build: ./PoliticsNewsService/query_db/ 
     ports: 
-      - "5435:5432" 
+      - "27020:27017" 
     restart: always 
 
   commanddb_politics: 
     image: commanddb_politics 
     build: ./PoliticsNewsService/command_db/ 
+    volumes:
+      - pgdata3:/var/lib/postgresql/data
     ports: 
-      - "27018:27017" 
+      - "5435:5432" 
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
     healthcheck: 
       test: exit 0 
     restart: always
@@ -77,7 +83,7 @@ services:
     volumes: 
       - './PoliticsNewsService:/app' 
     environment: 
-      - QUERYBD_HOST=mongodb://querydb_politics:27018/ 
+      - QUERYBD_HOST=mongodb://querydb_politics:27017/ 
       - QUEUE_HOST=amqp://guest:guest@rabbitmq 
       - COMMANDDB_HOST=postgresql://postgres:postgres@commanddb_politics:5432/news_prod?sslmode=disable 
       - COMMANDDB_DEV_HOST=postgresql://postgres:postgres@commanddb_politics:5432/news_dev?sslmode=disable 
@@ -96,14 +102,20 @@ services:
     image: querydb_sports 
     build: ./SportsNewsService/query_db/ 
     ports: 
-      - "5434:5432" 
+      - "27019:27017" 
     restart: always 
 
   commanddb_sports: 
     image: commanddb_sports 
     build: ./SportsNewsService/command_db/ 
+    volumes:
+      - pgdata2:/var/lib/postgresql/data
     ports: 
-      - "27019:27017" 
+      - "5434:5432" 
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
     healthcheck: 
       test: exit 0 
     restart: always
@@ -114,7 +126,7 @@ services:
     volumes: 
       - './SportsNewsService:/app'
     environment: 
-      - QUERYBD_HOST=mongodb://querydb_sports:27019/ 
+      - QUERYBD_HOST=mongodb://querydb_sports:27017/ 
       - QUEUE_HOST=amqp://guest:guest@rabbitmq 
       - COMMANDDB_HOST=postgresql://postgres:postgres@commanddb_sports:5432/news_prod?sslmode=disable 
       - COMMANDDB_DEV_HOST=postgresql://postgres:postgres@commanddb_sports:5432/news_dev?sslmode=disable 
@@ -133,14 +145,20 @@ services:
     image: querydb_famous 
     build: ./FamousNewsService/query_db/ 
     ports: 
-      - "5433:5432" 
+      - "27018:27017" 
     restart: always 
 
   commanddb_famous: 
     image: commanddb_famous 
     build: ./FamousNewsService/command_db/ 
+    volumes:
+      - pgdata1:/var/lib/postgresql/data
     ports: 
-      - "27017:27017" 
+      - "5433:5432" 
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
     healthcheck: 
       test: exit 0 
     restart: always 
@@ -197,3 +215,6 @@ services:
     restart: always
 volumes:
   pgdata:
+  pgdata1:
+  pgdata2:
+  pgdata3:
