@@ -58,6 +58,8 @@ services:
   querydb_politics: 
     image: querydb_politics 
     build: ./PoliticsNewsService/query_db/ 
+    volumes:
+      - mgdata3:/data/db
     ports: 
       - "27020:27017" 
     restart: always 
@@ -101,6 +103,8 @@ services:
   querydb_sports: 
     image: querydb_sports 
     build: ./SportsNewsService/query_db/ 
+    volumes:
+      - mgdata2:/data/db
     ports: 
       - "27019:27017" 
     restart: always 
@@ -144,6 +148,8 @@ services:
   querydb_famous: 
     image: querydb_famous 
     build: ./FamousNewsService/query_db/ 
+    volumes:
+      - mgdata1:/data/db
     ports: 
       - "27018:27017" 
     restart: always 
@@ -218,3 +224,6 @@ volumes:
   pgdata1:
   pgdata2:
   pgdata3:
+  mgdata1:
+  mgdata2:
+  mgdata3:
