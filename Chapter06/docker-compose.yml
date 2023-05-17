@@ -12,8 +12,8 @@ services:
     restart: always
 
   rabbitmq: 
-    image: rabbitmq 
-    build: ./queue 
+    image: rabbitmq:3-management 
+    #build: ./queue 
     ports: 
         - "15672:15672" 
         - "5672:5672" 
@@ -22,11 +22,14 @@ services:
   users-service-db:
     container_name: users-service-db
     build: ./UsersService/db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     ports:
-      - 5436:5432
+      - 5432:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
     healthcheck:
       test: exit 0
     restart: always
@@ -187,8 +190,10 @@ services:
     container_name: userservice_loadbalance
     build: ./nginx
     ports:
-      - "80:80"
+      - "8080:80"
     links:
       - usersservice
       - orchestrator_news_service
     restart: always
+volumes:
+  pgdata:
