@@ -3,6 +3,7 @@ from py2neo import (
     Graph,
     Node,
     Relationship,
+    NodeMatcher,
 )
 
 USERS_NODE = 'Users'
@@ -13,19 +14,29 @@ graph = Graph(os.getenv('DATABASE_URL'))
 
 
 def get_user_node(user_id):
-    return graph.find_one(
-        USERS_NODE,
-        property_key='id',
-        property_value=user_id,
-    )
+    return NodeMatcher(graph).match(
+         USERS_NODE,
+         property_key='id',
+         property_value=user_id,
+    ).first()
+    #return graph.find_one(
+    #    USERS_NODE,
+    #    property_key='id',
+    #    property_value=user_id,
+    #)
 
 
 def get_label_node(label):
-    return graph.find_one(
+    return NodeMatcher(graph).match(
         LABELS_NODE,
         property_key='id',
         property_value=label,
-    )
+    ).first()
+    #return graph.find_one(
+    #    LABELS_NODE,
+    #    property_key='id',
+    #    property_value=label,
+    #)
 
 
 def get_labels_by_user_id(user_id):
