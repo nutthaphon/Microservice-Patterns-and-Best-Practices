@@ -233,7 +233,7 @@ services:
   # ----------------------------------------
 
   recommendation_db:
-    image: neo4j:3.4
+    image: neo4j
     ports:
       - "7474:7474"
       - "7687:7687"
@@ -248,7 +248,7 @@ services:
       - './RecommendationService:/app'
     environment:
       - QUEUE_HOST=amqp://guest:guest@rabbitmq
-      - DATABASE_URL=http://recommendation_db:7474/db/data
+      - DATABASE_URL=neo4j://recommendation_db:7687
       - USER_SERVICE_ROUTE=http://users_service:3000/user/
     depends_on:
       - recommendation_db
