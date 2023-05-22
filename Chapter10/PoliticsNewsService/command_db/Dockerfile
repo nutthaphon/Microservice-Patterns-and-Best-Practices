@@ -1,4 +1,4 @@
-FROM postgres
+FROM postgres:11.0
 
 ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=postgres

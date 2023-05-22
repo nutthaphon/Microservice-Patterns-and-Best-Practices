@@ -18,11 +18,14 @@ services:
 
   users_service_db:
     build: ./UsersService/db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     ports:
       - 5432:5432  # expose ports - HOST:CONTAINER
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
     healthcheck:
       test: exit 0
     restart: always
@@ -82,15 +85,23 @@ services:
   querydb_famous:
     image: querydb_famous
     build: ./FamousNewsService/query_db/
+    volumes:
+      - mgdata1:/data/db
     ports:
-      - "5433:5432"
+      - "27018:27017"
     restart: always
 
   commanddb_famous:
     image: commanddb_famous
     build: ./FamousNewsService/command_db/
+    volumes:
+      - pgdata1:/var/lib/postgresql/data
     ports:
-      - "27017:27017"
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
     healthcheck:
       test: exit 0
     restart: always
@@ -124,15 +135,23 @@ services:
   querydb_politics:
     image: querydb_politics
     build: ./PoliticsNewsService/query_db/
+    volumes:
+      - mgdata3:/data/db
     ports:
-      - "5434:5432"
+      - "27020:27017"
     restart: always
 
   commanddb_politics:
     image: commanddb_politics
     build: ./PoliticsNewsService/command_db/
+    volumes:
+      - pgdata3:/var/lib/postgresql/data
     ports:
-      - "27018:27017"
+      - "5435:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
     healthcheck:
       test: exit 0
     restart: always
@@ -166,15 +185,23 @@ services:
   querydb_sports:
     image: querydb_sports
     build: ./SportsNewsService/query_db/
+    volumes:
+      - mgdata2:/data/db
     ports:
-      - "5435:5432"
+      - "27019:27017"
     restart: always
 
   commanddb_sports:
     image: commanddb_sports
     build: ./SportsNewsService/command_db/
+    volumes:
+      - pgdata2:/var/lib/postgresql/data
     ports:
-      - "27019:27017"
+      - "5434:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
     healthcheck:
       test: exit 0
     restart: always
@@ -242,9 +269,18 @@ services:
   loadbalance:
     build: ./nginx
     ports:
-      - "80:80"
+      - "8080:80"
     links:
       - users_service
       - orcherstrator_news_service
       - recommendation_service
     restart: always
+
+volumes:
+  pgdata:
+  pgdata1:
+  pgdata2:
+  pgdata3:
+  mgdata1:
+  mgdata2:
+  mgdata3:
