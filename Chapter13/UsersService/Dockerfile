@@ -1,4 +1,4 @@
-FROM golang:latest 
+FROM golang:1.22.4 
 
 LABEL Name=userservice Version=0.0.1 
 
