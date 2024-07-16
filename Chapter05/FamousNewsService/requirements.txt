@@ -28,3 +28,4 @@ wcwidth==0.1.7
 Werkzeug==0.12.2 
 WTForms==2.1 
 Flask-Testing==0.6.2
+setuptools>=70.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
