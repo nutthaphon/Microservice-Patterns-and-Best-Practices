@@ -1,4 +1,4 @@
-FROM python:3.6.1
+FROM python:3.13.2
 COPY pip.conf /root/.config/pip/pip.conf
 COPY . /app
 WORKDIR /app
