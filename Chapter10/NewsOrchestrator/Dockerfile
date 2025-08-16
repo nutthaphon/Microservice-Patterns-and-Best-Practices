@@ -1,4 +1,4 @@
-FROM python:3.6.1 
+FROM python:3.14.0rc2 
 
 COPY pip.conf /root/.config/pip/pip.conf
 
