@@ -2,3 +2,4 @@ pytest
 nameko
 py2neo
 grpcio==1.7.3
+werkzeug>=3.1.4 # not directly required, pinned by Snyk to avoid a vulnerability
